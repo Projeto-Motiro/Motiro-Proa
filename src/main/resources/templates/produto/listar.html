@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+	<title>Listagem de Produtos</title>
+</head>
+
+<body>
+	<nav class="navbar navbar-light bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Produtos</a>
+		</div>
+	</nav>
+
+	<main class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<h1>Listagem de Produtos</h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12">
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Nome</th>
+							<th scope="col">Foto</th>
+							<th scope="col">Preço</th>
+							<th scope="col">Descrição</th>
+							<th scope="col">Mercado</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="produto : ${produtos}">
+							<th scope="row" th:text="${produto.id}"></th>
+							<td>
+								<a th:text="${produto.nome}" th:href="@{/produto/{id} (id=${produto.id})}"></a>
+							</td>
+
+							<td>
+								<img alt="Image" class="img_prod" height="200px" width="110px"
+									th:src="|/produto/imagem/${produto.id}|" />
+							</td>
+
+							<td>
+								<a th:text="${produto.preco}" th:href="@{/produto/{id} (id=${produto.id})}"></a>
+							</td>
+
+							<td>
+								<p
+									th:utext="${#strings.replace(#strings.escapeXml(produto.descricao),'&#10;','&lt;br&gt;')}">
+								</p>
+							</td>
+
+							<td>
+								<p th:text="${produto.mercado.nome}"></p>
+								
+							</td>
+
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12">
+				<a th:href="@{/produto/cadastrar}" class="btn btn-primary">Cadastrar novo Produto</a>
+			</div>
+		</div>
+	</main>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
